@@ -1,4 +1,3 @@
-//HIIIIIIIIIIIIIIIIIIII
 package carBidding;
 
 import java.util.Scanner;
