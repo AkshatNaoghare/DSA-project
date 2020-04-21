@@ -103,8 +103,7 @@ public class cars
 		if(prev.licPNo==str)
 		{
 			prev.next=null;
-			carStore[addr]=ptr;
-			System.out.println("Deletion successful!");
+			carStore[addr]=ptr;		//deletion successfull
 		}
 		else
 		{
