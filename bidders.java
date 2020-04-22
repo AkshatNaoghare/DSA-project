@@ -1,11 +1,15 @@
 package carBidding;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class bidders 
 {
 	bidder root;
 	int count;
+	bidder head, t;
+	int size_of_queue = 5, c = 0;
 
 	Scanner sc  = new Scanner(System.in);
 	
@@ -13,6 +17,64 @@ public class bidders
 	{
 		root = null;
 		count  = 0;
+	}
+	
+	int isfull()
+	{
+		if(c == size_of_queue)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+	int isempty()
+	{
+		if (head == null)
+		{
+			return 1;
+		}
+		else 
+		{
+			return 0;
+		}
+	}
+	
+	void waiting(bidder d)
+	{
+		if(isfull() == 0)
+		{
+			if(head == null)
+			{
+				head = t = d;
+			}
+			else
+			{
+				t.link = d;
+				t = d;
+			}
+		}
+		else
+		{
+			System.out.println("waiting list is full");
+		}
+		c++;
+	}
+	
+	void display()
+	{
+		bidder temp = null;
+		
+		temp = head;
+		
+		while(temp != null)
+		{
+			System.out.print(temp.name+" ");
+			temp = temp.link;
+		}
 	}
 	
 	public void create()
@@ -71,6 +133,80 @@ public class bidders
 				}
 			}
 		}
+	}
+	
+	public bidder search()							//returns address of the value input
+	{
+		bidder ptr = null;
+		bidder addr = null;
+		float bdgt = 0.0f;
+		
+		System.out.println("enter budget: ");
+		bdgt = sc.nextFloat();
+		
+		ptr = root;
+		
+		while(ptr != null)
+		{
+			if(bdgt == ptr.budget)
+			{
+				return ptr;
+			}
+			else if(bdgt < ptr.budget)
+			{
+				ptr = ptr.left;
+			}
+			else
+			{
+				ptr = ptr.right;
+			}
+		}
+		addr = ptr;
+		
+		return addr;
+	}
+	
+	void level_order(bidder r)								//print nodes level-wise
+	{
+		Queue<bidder> q = new LinkedList<bidder>();
+		bidder ptr;
+		int i = 1;
+		
+		if(r == null)
+		{
+			return;
+		}
+		else
+		{
+			q.add(r);
+			q.add(null);
+			
+			while(!(q.isEmpty()))
+			{
+				ptr = (bidder)q.remove();
+				if(ptr == null)
+				{
+					if(!q.isEmpty())
+					{
+						q.add(null);
+						System.out.println("level "+i++);
+					}
+				}
+				else
+				{
+					if(ptr.left!=null)
+					{
+						q.add(ptr.left);
+					}
+					if(ptr.right!=null)
+					{
+						q.add(ptr.right);
+					}
+					waiting(ptr);
+				}
+			}
+		}
+		
 	}
 
 }
