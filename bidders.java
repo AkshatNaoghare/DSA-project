@@ -13,67 +13,29 @@ public class bidders
 
 	Scanner sc  = new Scanner(System.in);
 	
+	LinkedList<bidder> que = new LinkedList<bidder>();
+	
 	public bidders()
 	{
 		root = null;
 		count  = 0;
 	}
 	
-	int isfull()
-	{
-		if(c == size_of_queue)
-		{
-			return 1;
-		}
-		else
-		{
-			return 0;
-		}
-	}
-	
-	int isempty()
-	{
-		if (head == null)
-		{
-			return 1;
-		}
-		else 
-		{
-			return 0;
-		}
-	}
-	
 	void waiting(bidder d)
 	{
-		if(isfull() == 0)
-		{
-			if(head == null)
-			{
-				head = t = d;
-			}
-			else
-			{
-				t.link = d;
-				t = d;
-			}
-		}
-		else
-		{
-			System.out.println("waiting list is full");
-		}
-		c++;
+		que.add(d);
+	}
+	
+	void delete(bidder d)
+	{
+		que.remove(d);
 	}
 	
 	void display()
 	{
-		bidder temp = null;
-		
-		temp = head;
-		
-		while(temp != null)
+		for(int i = 0 ; i<que.size() ; i++)
 		{
-			System.out.print(temp.name+" ");
-			temp = temp.link;
+			que.get(i).display();
 		}
 	}
 	
@@ -166,7 +128,7 @@ public class bidders
 		return addr;
 	}
 	
-	void level_order(bidder r)								//print nodes level-wise
+	void waitingList(bidder r)								//print nodes level-wise
 	{
 		Queue<bidder> q = new LinkedList<bidder>();
 		bidder ptr;
