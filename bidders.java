@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class bidders 
 {
 	bidder root;
-	int count;
+	int count, max_level;
 	bidder head, t;
 	int size_of_queue = 5, c = 0;
 
@@ -128,48 +128,24 @@ public class bidders
 		return addr;
 	}
 	
-	void waitingList(bidder r)								//print nodes level-wise
+	void waitingList(bidder r)							
 	{
-		Queue<bidder> q = new LinkedList<bidder>();
-		bidder ptr;
-		int i = 1;
-		
+        waiting(r);
+        waitingListt(r.left);
+   	}
+	
+	void waitingListt(bidder r)
+	{
 		if(r == null)
 		{
 			return;
 		}
 		else
 		{
-			q.add(r);
-			q.add(null);
-			
-			while(!(q.isEmpty()))
-			{
-				ptr = (bidder)q.remove();
-				if(ptr == null)
-				{
-					if(!q.isEmpty())
-					{
-						q.add(null);
-						System.out.println("level "+i++);
-					}
-				}
-				else
-				{
-					if(ptr.left!=null)
-					{
-						q.add(ptr.left);
-					}
-					if(ptr.right!=null)
-					{
-						q.add(ptr.right);
-					}
-					waiting(ptr);
-				}
-			}
+			waitingListt(r.left);
+			waiting(r);
+			waitingListt(r.right);
 		}
-		
 	}
-
 }
  
