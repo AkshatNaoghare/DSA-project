@@ -5,6 +5,7 @@ public class bidder
 	String name;
 	float budget;
     bidder left, right;
+    float bid;
     
 	public bidder(String name, float budget) 
 	{
@@ -15,5 +16,10 @@ public class bidder
 	bidder()
 	{
 		
+	}
+	
+	public void display()
+	{
+		System.out.println(name);
 	}
 }
