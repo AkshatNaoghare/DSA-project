@@ -1,17 +1,22 @@
 package carBidding;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class cars 
 {
+	car select;
+	int index;
 	int max;
 	car carStore[];
 	Scanner sc=new Scanner(System.in);
 	
 	public cars() 
 	{
+		index=0;
 		max=15;
 		carStore=new car[max];
+		select=carStore[index];
 	}
 	
 	void insert()
@@ -26,8 +31,25 @@ public class cars
 		
 		System.out.println("Enter car Owner Name: ");
 		name=sc.next();
-		System.out.println("Enter license plate number of the car: (LLXXLLXXXX)");
-		num=sc.next();
+		
+		int flag=0;
+		System.out.println("Enter license plate number of the car: (LL-XXX-LLL-XXXX)");
+		do
+		{
+			flag=0;
+			num=sc.next();
+			
+			if(validator(num))
+			{
+			}
+			else
+			{
+				System.out.println("Invalid format of License plate number! Enter in (LL-XXX-LLL-XXXX) format:");
+				flag=1;
+			}
+			
+		}while(flag==1);
+
 		System.out.println("Enter car brand: ");
 		brand=sc.next();
 		System.out.println("Enter car model name: ");
@@ -39,9 +61,9 @@ public class cars
 		
 		car temp=new car(name,num,brand,model,cost,bid);
 		
-		int key=Integer.parseInt(num.substring(6,10));		//converts string to integer data type
+		int key=Integer.parseInt(num.substring(11));		//converts string to integer data type
 		
-		hash_add=(int)(key%max);
+		hash_add=(key%max);
 				
 		if(carStore[hash_add]==null)
 		{
@@ -60,15 +82,25 @@ public class cars
 	
 	void display(car ptr)
 	{
+		System.out.println("\nCar Brand name: "+ptr.brand);
+		System.out.println("Car Model Name: "+ptr.modelName);
 		System.out.println("Car Owner name: "+ptr.name);
 		System.out.println("Car License Plate Number: "+ptr.licPNo);
-		System.out.println("Car Brand name: "+ptr.brand);
-		System.out.println("Car Model Name: "+ptr.modelName);
-		System.out.println("Orinial cost of the car: "+ptr.originalCost);
-		System.out.println("Minimum bid expected by owner: "+ptr.minBid);
+		
+		if(ptr.soldprice==0)
+		{
+			System.out.println("Original cost of the car-->"+ptr.originalCost);
+			System.out.println("Minimum bid expected by owner-->"+ptr.minBid);
+		}
+		else
+		{
+			System.out.println("Car sold at a price of-->"+ptr.soldprice);
+			System.out.println("To-->"+ptr.buyer);
+		}
+		
 	}
 	
-	void search(String str)		//str is license plate number of the car which is dequeued
+	/*void search(String str)		//str is license plate number of the car which is dequeued
 	{
 		int flag=0;
 		
@@ -103,7 +135,7 @@ public class cars
 		if(prev.licPNo==str)
 		{
 			prev.next=null;
-			carStore[addr]=ptr;		//deletion successfull
+			carStore[addr]=ptr;		//deletion successful
 		}
 		else
 		{
@@ -123,6 +155,47 @@ public class cars
 				prev.next=ptr.next;
 				ptr.next=null;			//deletion successful
 			}
+		}
+	}*/
+	
+	car select()
+	{
+		car current=null;
+
+		while(select==null)			//if the node in the hash table is empty(null)
+		{
+			index++;		//inc head
+			select=carStore[index];		//we move to next head
+		}
+		
+		if(select!=null)
+		{
+			current=select;
+			select=select.next;
+		}
+		return current;
+		
+	}
+	
+	boolean validator(String lpn)
+	{
+		int len = lpn.length();
+		boolean validLength = len>=10;
+		
+		if(!validLength)
+		{
+			return false;
+		}
+		
+		boolean rightAns = Pattern.compile("^[A-Z a-z]{1,2}-[0-9]{1,3}-[A-Z a-z]{1,3}-[0-9]{1,4}$").matcher(lpn).find();
+		
+		if(!rightAns)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 }
