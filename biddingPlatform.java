@@ -1,9 +1,15 @@
 package carBidding;
 
-public class biddingPlatform {
+public class biddingPlatform extends bidding
+{
+	public biddingPlatform() 
+	{
 
-	public biddingPlatform() {
-		// TODO Auto-generated constructor stub
+	}
+	
+	void maxBidderSelect()
+	{
+		bidder maxBidder = maximumBid();
 	}
 
 }
