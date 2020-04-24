@@ -54,7 +54,7 @@ public class bidding extends bidders
 		} 
 	} 
 	
-	void deleteRoot()
+	void deleteBidder()
 	{
 		int n = list.size();
 		// Get the last element 
