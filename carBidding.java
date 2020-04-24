@@ -6,10 +6,10 @@ public class carBidding
 	{
 
 	}
-
+	
 	public static void main(String[] args) 
 	{
-		bidding b = new bidding();
+		biddingPlatform b = new biddingPlatform();
 		b.create();
 		b.create();
 		b.create();
@@ -24,6 +24,8 @@ public class carBidding
 		b.bidPriorityQue();
 //		System.out.println(b.h[0].name);
 		b.printHeap(b.h, b.list.size());
+		b.rounds();
+		b.rounds();
 	}
 
 }
