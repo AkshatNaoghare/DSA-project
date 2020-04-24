@@ -8,6 +8,8 @@ public class car
 	float minBid;	//minimum bid expected by the owner
 	String brand;
 	String modelName;	//stores model name of the car
+	float soldprice;
+	String buyer;
 	car next;
 	
 	public car(String n, String ln, String br, String mn, float cp, float minb) 
@@ -18,6 +20,8 @@ public class car
 		modelName=mn;
 		originalCost = cp;
 		minBid = minb;
+		soldprice=0;
+		buyer="";
 	}
 	
 	car()
