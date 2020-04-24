@@ -1,41 +1,41 @@
 package carBidding;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class bidders 
 {
 	bidder root;
-	int count, max_level;
 	bidder head, t;
-	int size_of_queue = 5, c = 0;
 
 	Scanner sc  = new Scanner(System.in);
 	
-	LinkedList<bidder> que = new LinkedList<bidder>();
+	ArrayList<bidder> list = new ArrayList<bidder>(5);
 	
 	public bidders()
 	{
 		root = null;
-		count  = 0;
 	}
 	
 	void waiting(bidder d)
 	{
-		que.add(d);
+		if(d.budget >= 54.0f)
+		{
+			list.add(d);
+		}
 	}
 	
 	void delete(bidder d)
 	{
-		que.remove(d);
+		list.remove(d);
 	}
 	
 	void display()
 	{
-		for(int i = 0 ; i<que.size() ; i++)
+		for(int i = 0 ; i<list.size() ; i++)
 		{
-			que.get(i).display();
+			list.get(i).display();
 		}
 	}
 	
@@ -130,21 +130,15 @@ public class bidders
 	
 	void waitingList(bidder r)							
 	{
-        waiting(r);
-        waitingListt(r.left);
-   	}
-	
-	void waitingListt(bidder r)
-	{
 		if(r == null)
 		{
 			return;
 		}
 		else
 		{
-			waitingListt(r.left);
+			waitingList(r.left);
 			waiting(r);
-			waitingListt(r.right);
+			waitingList(r.right);
 		}
 	}
 }
