@@ -10,6 +10,7 @@ public class bidders
 	bidder head, t;
 
 	Scanner sc  = new Scanner(System.in);
+//	car c = new car();
 	
 	ArrayList<bidder> list = new ArrayList<bidder>(5);
 	
@@ -18,9 +19,9 @@ public class bidders
 		root = null;
 	}
 	
-	void waiting(bidder d)
+	void waiting(bidder d, float mb)
 	{
-		if(d.budget >= 54.0f)
+		if(d.budget >= mb)
 		{
 			list.add(d);
 		}
@@ -128,7 +129,7 @@ public class bidders
 		return addr;
 	}
 	
-	void waitingList(bidder r)							
+	void waitingList(bidder r, float minB)							
 	{
 		if(r == null)
 		{
@@ -136,9 +137,9 @@ public class bidders
 		}
 		else
 		{
-			waitingList(r.left);
-			waiting(r);
-			waitingList(r.right);
+			waitingList(r.left, minB);
+			waiting(r, minB);
+			waitingList(r.right, minB);
 		}
 	}
 }
