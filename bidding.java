@@ -12,9 +12,9 @@ public class bidding extends bidders
 		round = 1;
 	}
 	
-	void bidPriorityQue()
+	void bidPriorityQue(car c)
 	{
-		System.out.println("round " +round++ +" -->");
+		System.out.println("\nRound " +round++ +" -->\n");
 		
 		h = list.toArray(new bidder[list.size()]);
 		
@@ -24,13 +24,39 @@ public class bidding extends bidders
 			do
 			{
 				flag = 0;
-				System.out.print(list.get(i).name +" : ");
+				System.out.print("\tBid by "+list.get(i).name +" : ");
 				list.get(i).bid = sc.nextFloat();
 				
-				if(list.get(i).bid > list.get(i).budget)
+				if((list.get(i).bid)==0)
 				{
-					System.out.println("the bid is greater than your budget\ntry again");
-					flag = 1;
+				}
+				else
+				{
+					if(list.get(i).bid > list.get(i).budget)
+					{
+						System.out.println("The bid is greater than your budget\ntry again");
+						flag = 1;
+					}
+					
+					else if(list.get(i).bid<c.minBid)
+					{
+						System.out.println("The bid is lesser than minimum bid expected by car owner\ntry again");
+						flag = 1;
+					}
+					
+					else
+					{
+						for(int j=0; j<i; j++)
+						{
+							if(list.get(i).bid==list.get(j).bid)
+							{
+								System.out.println("Some one has already placed a bid of this amount!");
+								System.out.println("Either enter a higher bid or enter bid value as 0");
+								flag=1;
+								break;
+							}
+						}
+					}
 				}
 			}while(flag == 1);
 		}
@@ -83,10 +109,10 @@ public class bidding extends bidders
 	
 	void printHeap(bidder arr[], int n) 
 	{ 
-		
+		System.out.println("\nBids for this round were: ");
 		for (int i = 0; i < n; ++i) 
 		{
-			System.out.print(arr[i].name + " "); 
+			System.out.println("\t"+arr[i].name + ": "+arr[i].bid); 
 		}
 		System.out.println(); 
 	} 
