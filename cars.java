@@ -1,6 +1,7 @@
 package carBidding;
 
 import java.util.Scanner;
+
 import java.util.regex.Pattern;
 
 public class cars 
@@ -82,20 +83,20 @@ public class cars
 	
 	void display(car ptr)
 	{
-		System.out.println("\nCar Brand name: "+ptr.brand);
-		System.out.println("Car Model Name: "+ptr.modelName);
-		System.out.println("Car Owner name: "+ptr.name);
-		System.out.println("Car License Plate Number: "+ptr.licPNo);
+		System.out.println("\n\tCar Brand name: "+ptr.brand);
+		System.out.println("\tCar Model Name: "+ptr.modelName);
+		System.out.println("\tCar Owner name: "+ptr.name);
+		System.out.println("\tCar License Plate Number: "+ptr.licPNo);
 		
 		if(ptr.soldprice==0)
 		{
-			System.out.println("Original cost of the car-->"+ptr.originalCost);
-			System.out.println("Minimum bid expected by owner-->"+ptr.minBid);
+			System.out.println("\tOriginal cost of the car-->"+ptr.originalCost);
+			System.out.println("\tMinimum bid expected by owner-->"+ptr.minBid);
 		}
 		else
 		{
-			System.out.println("Car sold at a price of-->"+ptr.soldprice);
-			System.out.println("To-->"+ptr.buyer);
+			System.out.println("\tCar sold at a price of-->"+ptr.soldprice);
+			System.out.println("\tTo-->"+ptr.buyer);
 		}
 		
 	}
