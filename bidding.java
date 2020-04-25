@@ -20,8 +20,19 @@ public class bidding extends bidders
 		
 		for(int i = 0; i<list.size(); i++)
 		{
-			System.out.print(list.get(i).name +" : ");
-			list.get(i).bid = sc.nextFloat();
+			int flag = 0;
+			do
+			{
+				flag = 0;
+				System.out.print(list.get(i).name +" : ");
+				list.get(i).bid = sc.nextFloat();
+				
+				if(list.get(i).bid > list.get(i).budget)
+				{
+					System.out.println("the bid is greater than your budget\ntry again");
+					flag = 1;
+				}
+			}while(flag == 1);
 		}
 		
 		int startIdx = (list.size() / 2) - 1; // Index of last non-leaf node 
