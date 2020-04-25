@@ -18,7 +18,7 @@ public class carBidding
 //		b.create();
 //		b.create();
 ////		System.out.println(b.search().name);
-//		b.waitingList(b.root);
+//		b.waitingList(b.root, 54.0f);
 //		b.display();
 ////		System.out.println("delete");
 ////		b.delete(b.search());
@@ -71,6 +71,7 @@ public class carBidding
 								//Accept details of bidder
 								b.create();
 								System.out.println("THANK-YOU!");
+								
 								break;
 								
 
@@ -80,17 +81,26 @@ public class carBidding
 					break;
 					
 				case 'b':
-					
+		
 					System.out.println("\nLET'S BEGIN WITH THE BID ROUNDS! GET YOUR BIDS IN!");
 					
-					for(int i=0; i<nc; i++)
-					{
-						System.out.println("\nCAR No. -->"+(i+1));
+//					for(int i=0; i<nc; i++)
+//					{
+//						System.out.println("\nCAR No. -->"+(i+1));
 						car c=cs.select();
 						
 						cs.display(c);
 						
-					}
+						cs.index = 0;
+						b.waitingList(b.root, cs.select().minBid);
+//						System.out.println("%@#^%$#");
+						b.display();
+						b.bidPriorityQue();
+						b.printHeap(b.h, b.list.size());
+						b.rounds();
+						b.rounds();
+						b.rounds();
+//					}
 					
 					break;
 					
