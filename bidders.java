@@ -19,27 +19,6 @@ public class bidders
 		root = null;
 	}
 	
-	void waiting(bidder d, float mb)
-	{
-		if(d.budget >= mb)
-		{
-			list.add(d);
-		}
-	}
-	
-	void delete(bidder d)
-	{
-		list.remove(d);
-	}
-	
-	void display()
-	{
-		for(int i = 0 ; i<list.size() ; i++)
-		{
-			list.get(i).display();
-		}
-	}
-	
 	public void create()
 	{							//creates a BST
 		int flag = 0;
@@ -47,10 +26,10 @@ public class bidders
 		String name = null;
 		float bdgt = 0.0f;
 		
-		System.out.println("enter name: ");
+		System.out.println("Enter name: ");
 		name = sc.next();
 		
-		System.out.println("enter budget: ");
+		System.out.println("Enter budget: ");
 		bdgt = sc.nextFloat();
 		
 		bidder temp = new bidder(name, bdgt);
@@ -65,7 +44,7 @@ public class bidders
 			
 			while(flag == 0)
 			{
-				if(temp.budget < ptr.budget)			//if the data input is less than the root is added on the left side of the tree
+				if(temp.budget <= ptr.budget)			//if the data input is less than the root is added on the left side of the tree
 				{
 					if(ptr.left == null)
 					{
@@ -89,16 +68,62 @@ public class bidders
 						ptr = ptr.right;
 					}
 				}
-				else
+				/*else
 				{
 					System.out.println("duplicate data not allowed");
-					flag = 1;
-				}
+					flag = 0;
+				}*/
 			}
 		}
 	}
 	
-	public bidder search()							//returns address of the value input
+	void waitingList(bidder r, float minB)							
+	{
+		if(r == null)
+		{
+			return;
+		}
+		else
+		{
+			waitingList(r.left, minB);
+			waiting(r, minB);
+			waitingList(r.right, minB);
+		}
+	}
+	void waiting(bidder d, float mb)
+	{
+		//System.out.println(d.budget+" "+mb);
+		if(d.budget >= mb)
+		{
+			d.bid=0;
+			list.add(d);
+			
+			d.display();
+		}
+		/*else
+		{
+			System.out.println("\nName:"+d.name);
+			System.out.println("Budget remanining: "+d.budget+" (Less than minimum bid required be car owner, hence not eligible!");
+		}*/
+	}
+	
+	/*void delete(bidder d)
+	{
+		list.remove(d);
+	}*/
+	
+	/*void display()
+	{
+		System.out.println("\n\nBidders eligible to bid: ");
+		for(int i = 0 ; i<list.size() ; i++)
+		{
+			list.get(i).display();
+		}
+	}*/
+	
+	
+	
+	/*public bidder search()							//returns address of the value input
 	{
 		bidder ptr = null;
 		bidder addr = null;
@@ -127,20 +152,7 @@ public class bidders
 		addr = ptr;
 		
 		return addr;
-	}
+	}*/
 	
-	void waitingList(bidder r, float minB)							
-	{
-		if(r == null)
-		{
-			return;
-		}
-		else
-		{
-			waitingList(r.left, minB);
-			waiting(r, minB);
-			waitingList(r.right, minB);
-		}
-	}
+	
 }
- 
