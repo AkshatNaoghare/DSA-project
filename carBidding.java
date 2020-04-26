@@ -39,6 +39,7 @@ public class carBidding
 		int nc=0;			//no. of cars registered
 		int nb=0;			//no. of bidders registered
 		car c;
+		int i = 0;
 		
 		System.out.println("\t\t\t!!!!WELCOME TO BID-CAPITAL!!!!");
 		
@@ -83,12 +84,16 @@ public class carBidding
 					
 				case 'b':
 		
-					System.out.println("\nLET'S BEGIN WITH THE BID ROUNDS! GET YOUR BIDS IN!");
+					
 					
 					
 //					for(int i=0; i<nc; i++)
 //					{
-						int i = 0;
+					
+					if(i<nc)
+					{
+						System.out.println("\nLET'S BEGIN WITH THE BID ROUNDS! GET YOUR BIDS IN!");
+						
 						System.out.println("\nCAR No. -->"+((i++)+1));
 						c=cs.select();
 						
@@ -103,19 +108,40 @@ public class carBidding
 						//b.printHeap(b.h, b.list.size());
 						//b.rounds(c);
 						
-						for(int j=0; j<3; j++)
+						b.r=0;
+						b.t=0;
+						for(int j=0 ; j<3; j++)
 						{
-							b.bidPriorityQue(c);
-							b.rounds(c);
+							if((b.r==0)&&(b.t==0))
+							{
+								b.bidPriorityQue(c);
+								b.rounds(c);
+							}
 						}
 						
-						b.sellCar(b.maximumBid(), c);
-						c.sold = true;
+						
+						if((b.r==0))
+						{
+							b.sellCar(b.maximumBid(), c);
+							c.sold = true;
+
+						}
+						
+						if(b.t==1)
+						{
+							System.out.println("");
+							c.sold=true;
+						}
 						b.list.clear();
+
 //						b.deleteBidder();
 						
 						//b.rounds(c);
-//					}
+					}
+					else
+					{
+						System.out.println("No cars to bid on!");
+					}
 					
 					break;
 					
@@ -130,7 +156,7 @@ public class carBidding
 		car cc;
 		
 		System.out.println("\nResults of all cars: ");
-		for(int i=0; i<nc; i++)				//print all car details including buyer after all rounds
+		for(int j=0;j<nc; j++)				//print all car details including buyer after all rounds
 		{
 			cc=cs.select();
 			cs.display(cc);
