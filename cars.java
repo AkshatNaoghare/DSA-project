@@ -30,6 +30,7 @@ public class cars
 		float bid;	
 		int hash_add;
 		
+		
 		System.out.println("Enter car Owner Name: ");
 		name=sc.next();
 		
@@ -48,6 +49,14 @@ public class cars
 				System.out.println("Invalid format of License plate number! Enter in (LL-XXX-LLL-XXXX) format:");
 				flag=1;
 			}
+			
+			if(search(num))
+			{
+				System.out.println("Duplicate license plate number!");
+				System.out.println("Re-enter!");
+				flag=1;
+			}
+			
 			
 		}while(flag==1);
 
@@ -101,27 +110,32 @@ public class cars
 		
 	}
 	
-	/*void search(String str)		//str is license plate number of the car which is dequeued
+	boolean search(String str)		//str is license plate number of the car which is dequeued
 	{
 		int flag=0;
 		
-		int key=Integer.parseInt(str.substring(6,10));
+		int key=Integer.parseInt(str.substring(11));
 		int addr=(int)(key%max);
 		
 		car ptr=carStore[addr];
 		while(ptr!=null)
 		{
-			if(ptr.licPNo==str)
+
+			if(ptr.licPNo.equals(str))
 			{
-				display(ptr);
 				flag=1;
+				break;
 			}
 			ptr=ptr.next;
 		}
 		
-		if(flag==0)
+		if(flag==1)
 		{
-			System.out.println("No such Car available!");
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 	
@@ -157,7 +171,7 @@ public class cars
 				ptr.next=null;			//deletion successful
 			}
 		}
-	}*/
+	}
 	
 	car select()
 	{
@@ -180,42 +194,48 @@ public class cars
 		int flag = 0;
 		
 		
-		
-		
-		if(index<max)
+		do
 		{
-			do
+			flag = 0;
+			if(carStore[index] != null)
 			{
-				flag = 0;
-				if(carStore[index] != null)
+				current = carStore[index++];
+				
+				while(current.next != null)	
 				{
-					current = carStore[index++];
-					
-					while(current.next != null)	
+					if(!current.sold)
 					{
-						if(!current.sold)
-						{
-							break;
-						}
-						else
-						{
-							current = current.next;
-						}
+						break;
+					}
+					else
+					{
+						current = current.next;
 					}
 				}
-				else
+			}
+		else
+			{
+				index++;
+				if(index<15)
 				{
-					index++;
 					flag = 1;
 				}
-			}while(flag == 1);
+		
+				else
+				{
+					index = 0;
+				}
+			}
+		}while(flag==1);
+		
+		if(current!=null)
+		{
+			return current;
 		}
 		else
 		{
-			index = 0;
+			return select();
 		}
-		
-		return current;
 	}
 	
 	boolean validator(String lpn)
