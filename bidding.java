@@ -1,5 +1,6 @@
 package carBidding;
 
+import java.util.ArrayList;
 
 public class bidding extends bidders
 {
@@ -42,48 +43,73 @@ public class bidding extends bidders
 		}
 		else
 		{
+			float f;
 			for(int i = 0; i<list.size(); i++)
 			{
 				int flag = 0;
 				do
 				{
 					flag = 0;
-					System.out.print("\tBid by "+list.get(i).name +" : ");
-					list.get(i).bid = sc.nextFloat();
 					
-					if((list.get(i).bid)==0)
-					{
-					}
-					else
-					{
-						if(list.get(i).bid > list.get(i).budget)
-						{
-							System.out.println("The bid is greater than your budget\ntry again");
-							flag = 1;
-						}
+					/*do
+					{*/
+						flag=0;
+						System.out.print("\tBid by "+list.get(i).name +" : ");
 						
-						else if(list.get(i).bid<c.minBid)
+						f= sc.nextFloat();
+						//System.out.println(f+"<"+list.get(i).bid);
+						/*if((f<list.get(i).bid)&&(f!=0))
 						{
-							System.out.println("The bid is lesser than minimum bid expected by car owner\ntry again");
-							flag = 1;
+							flag=1;
+							System.out.println("Your bid in this round is lesser than that in previous bid!");
+							System.out.println("Either enter a higher bid or that of previous round or enter 0");
 						}
-						
 						else
 						{
-							for(int j=0; j<i; j++)
+							list.get(i).bid=f;
+						}*/
+					/*}while(flag==1);*/
+					
+				if(f==0)
+				{
+				}
+				else if((f<list.get(i).bid)&&(f!=0))
+				{
+					flag=1;
+					System.out.println("Your bid in this round is lesser than that in previous bid!");
+					System.out.println("Either enter a higher bid or that of previous round or enter 0");
+				}
+				else
+				{
+					if(f > list.get(i).budget)
+					{
+						System.out.println("The bid is greater than your budget\ntry again");
+						flag = 1;
+					}
+						
+					else if(f<c.minBid)
+					{
+						System.out.println("The bid is lesser than minimum bid expected by car owner\ntry again");
+						flag = 1;
+					}
+					
+					else
+					{
+						for(int j=0; j<i; j++)
+						{
+							if(f==list.get(j).bid)
 							{
-								if(list.get(i).bid==list.get(j).bid)
-								{
-									System.out.println("Some one has already placed a bid of this amount!");
-									System.out.println("Either enter a higher bid or enter bid value as 0");
-									flag=1;
-									break;
-								}
+								System.out.println("Some one has already placed a bid of this amount!");
+								System.out.println("Either enter a higher bid or enter bid value as 0");	
+								flag=1;
+								break;
 							}
 						}
 					}
+				}
 					
 				}while(flag == 1);
+				list.get(i).bid=f;
 			}
 		
 		
