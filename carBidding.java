@@ -1,6 +1,8 @@
 package carBidding;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class carBidding 
 {
@@ -132,7 +134,7 @@ public class carBidding
 							System.out.println("");
 							c.sold=true;
 						}
-						b.list.clear();
+						b.list=new ArrayList<bidder>(5);
 
 //						b.deleteBidder();
 						
@@ -152,15 +154,27 @@ public class carBidding
 		
 		}while(ch1 != 'c');
 		
-		cs.index = 0;
-		car cc;
 		
 		System.out.println("\nResults of all cars: ");
-		for(int j=0;j<nc; j++)				//print all car details including buyer after all rounds
+		cs.displayAll();
+		
+		/*car cc=null;
+		
+		for(int j=0; j<cs.max; j++)
+		{
+			cc=cs.carStore[i];
+			while(cc!=null)
+			{
+				cc.display();
+				System.out.println();
+				cc=cc.next;
+			}
+		}*/
+		/*for(int j=0;j<nc; j++)				//print all car details including buyer after all rounds
 		{
 			cc=cs.select();
 			cs.display(cc);
-		}
+		}*/
 		
 		System.out.println("THANKYOU!");
 		
