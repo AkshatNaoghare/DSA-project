@@ -110,6 +110,34 @@ public class cars
 		
 	}
 	
+	void displayAll()
+	{
+		car ptr=null;
+		
+		for(int i=0; i<max; i++)
+		{
+			ptr=carStore[i];
+			while(ptr!=null)
+			{
+				System.out.println("\n\tCar Brand name: "+ptr.brand);
+				System.out.println("\tCar Model Name: "+ptr.modelName);
+				System.out.println("\tCar Owner name: "+ptr.name);
+				System.out.println("\tCar License Plate Number: "+ptr.licPNo);
+				
+				if(ptr.soldprice==0)
+				{
+					System.out.println("\tCar Unsold!");
+				}
+				else
+				{
+					System.out.println("\tCar sold at a price of-->"+ptr.soldprice);
+					System.out.println("\tTo-->"+ptr.buyer);
+				}
+				ptr=ptr.next;
+			}
+		}
+	}
+	
 	boolean search(String str)		//str is license plate number of the car which is dequeued
 	{
 		int flag=0;
@@ -175,22 +203,50 @@ public class cars
 	
 	car select()
 	{
-//		car current=null;
-//
-//		while(select==null)			//if the node in the hash table is empty(null)
-//		{
-//			index++;		//inc head
-//			select=carStore[index];		//we move to next head
-//		}
-//		
-//		if(select!=null)
-//		{
-//			current=select;
-//			select=select.next;
-//		}
-//		return current;
+		int flag=0;
+		car current=null;/*
+		select=carStore[index];*/
+	do {
+		flag=0;
+		while(select==null)			//if the node in the hash table is empty(null)
+	
+		{
+			index++;//inc head
+			if(index==15)
+			{
+				index=0;
+			}
+			select=carStore[index];		//we move to next head
+		}
 		
-		car current = null;
+		if(select!=null)
+		{
+			if(!select.sold)
+			{	current=select;
+				select=select.next;
+				if(select==null)
+				{
+					break;
+				}
+			}else
+			{
+				while(select.sold)
+				{
+					if(select.next==null)
+					{
+						flag=1;
+						select=select.next;
+						break;
+					}
+					select=select.next;
+				}
+				current=select;
+			}
+		}
+	}while(flag==1);
+	return current;
+		
+		/*car current = null;
 		int flag = 0;
 		
 		
@@ -235,7 +291,7 @@ public class cars
 		else
 		{
 			return select();
-		}
+		}*/
 	}
 	
 	boolean validator(String lpn)
