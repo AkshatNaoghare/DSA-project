@@ -1,3 +1,4 @@
+
 package carBidding;
 
 public class car 
@@ -30,5 +31,4 @@ public class car
 	{
 		next=null;
 	}
-
 }
