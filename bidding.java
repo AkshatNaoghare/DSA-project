@@ -4,12 +4,14 @@ package carBidding;
 public class bidding extends bidders
 {
 	static int round;
+	int t;		//for validating when there is only one eligible bidder
 	bidder h[];
 //	bidder maxBidder;
 	
 	public bidding() 
 	{
 		round = 1;
+		t=0;
 	}
 	
 	void bidPriorityQue(car c)
@@ -18,55 +20,80 @@ public class bidding extends bidders
 		
 		h = list.toArray(new bidder[list.size()]);
 		
-		for(int i = 0; i<list.size(); i++)
+		if(list.size()==0)
 		{
-			int flag = 0;
-			do
+			System.out.println("No eligible bidders!");
+			System.out.println("Car unsold!");
+		}
+		else if(list.size()==1)
+		{
+			System.out.println("Do you want to buy this car? 1.Yes 2. NO");
+			int ch=sc.nextInt();
+			
+			if(ch==1)
 			{
-				flag = 0;
-				System.out.print("\tBid by "+list.get(i).name +" : ");
-				list.get(i).bid = sc.nextFloat();
-				
-				if((list.get(i).bid)==0)
+				list.get(0).bid=c.minBid;
+			}
+			
+			else
+			{
+				list.get(0).bid=0;
+			}
+		}
+		else
+		{
+			for(int i = 0; i<list.size(); i++)
+			{
+				int flag = 0;
+				do
 				{
-				}
-				else
-				{
-					if(list.get(i).bid > list.get(i).budget)
-					{
-						System.out.println("The bid is greater than your budget\ntry again");
-						flag = 1;
-					}
+					flag = 0;
+					System.out.print("\tBid by "+list.get(i).name +" : ");
+					list.get(i).bid = sc.nextFloat();
 					
-					else if(list.get(i).bid<c.minBid)
+					if((list.get(i).bid)==0)
 					{
-						System.out.println("The bid is lesser than minimum bid expected by car owner\ntry again");
-						flag = 1;
 					}
-					
 					else
 					{
-						for(int j=0; j<i; j++)
+						if(list.get(i).bid > list.get(i).budget)
 						{
-							if(list.get(i).bid==list.get(j).bid)
+							System.out.println("The bid is greater than your budget\ntry again");
+							flag = 1;
+						}
+						
+						else if(list.get(i).bid<c.minBid)
+						{
+							System.out.println("The bid is lesser than minimum bid expected by car owner\ntry again");
+							flag = 1;
+						}
+						
+						else
+						{
+							for(int j=0; j<i; j++)
 							{
-								System.out.println("Some one has already placed a bid of this amount!");
-								System.out.println("Either enter a higher bid or enter bid value as 0");
-								flag=1;
-								break;
+								if(list.get(i).bid==list.get(j).bid)
+								{
+									System.out.println("Some one has already placed a bid of this amount!");
+									System.out.println("Either enter a higher bid or enter bid value as 0");
+									flag=1;
+									break;
+								}
 							}
 						}
 					}
-				}
-			}while(flag == 1);
+					
+				}while(flag == 1);
+			}
+		
+		
+			int startIdx = (list.size() / 2) - 1; // Index of last non-leaf node 
+			
+			for (int i1 = startIdx; i1 >= 0; i1--) 
+			{ 
+				downAdjust(h, list.size(), i1); 
+			} 
 		}
-		
-		int startIdx = (list.size() / 2) - 1; // Index of last non-leaf node 
-		
-		for (int i1 = startIdx; i1 >= 0; i1--) 
-		{ 
-			downAdjust(h, list.size(), i1); 
-		} 
 	}
 	
 	void downAdjust(bidder array[], int size, int i) 
@@ -109,16 +136,31 @@ public class bidding extends bidders
 	
 	void printHeap(bidder arr[], int n) 
 	{ 
+		if(list.size()>1)
+		{
 		System.out.println("\nBids for this round were: ");
 		for (int i = 0; i < n; ++i) 
 		{
 			System.out.println("\t"+arr[i].name + ": "+arr[i].bid); 
+		}
+		}
+		else
+		{
+			t=1;
 		}
 		System.out.println(); 
 	} 
 	
 	bidder maximumBid()
 	{
+		if(list.size()==0)
+		{
+			return null;
+		}
+		else
+		{
 		return h[0];
+		}
+		
 	}
 }
