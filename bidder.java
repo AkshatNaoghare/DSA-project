@@ -20,6 +20,7 @@ public class bidder
 	
 	public void display()
 	{
-		System.out.println(name);
+		System.out.println("\nName:"+name);
+		System.out.println("Budget remanining:"+budget);
 	}
 }
