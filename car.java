@@ -11,6 +11,7 @@ public class car
 	float soldprice;
 	String buyer;
 	car next;
+	boolean sold;		//sold flag to check if a car is sold or not
 	
 	public car(String n, String ln, String br, String mn, float cp, float minb) 
 	{
@@ -22,6 +23,7 @@ public class car
 		minBid = minb;
 		soldprice=0;
 		buyer="";
+		sold = false;
 	}
 	
 	car()
