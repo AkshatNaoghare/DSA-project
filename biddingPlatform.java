@@ -20,7 +20,7 @@ public class biddingPlatform extends bidding
 		
 		if((maxBidder!=null)&&(maxBidder.bid==0))
 		{
-			if(list.size()==0)
+			if(list.size()==0)//no eligible bidder
 			{
 				
 			}
@@ -53,7 +53,7 @@ public class biddingPlatform extends bidding
 		/*System.out.println(maxBidder.bid);
 		System.out.println(maximumBid().bid);*/
 		System.out.println("\t-----------------------------");
-		if(t==0)
+		if(t==0)		//one eligible bidder condition
 		{
 			if(maxBidder.bid >= maximumBid().bid)
 			{
@@ -75,7 +75,7 @@ public class biddingPlatform extends bidding
 		}
 		else if(maximumBid()==null)
 		{
-			
+			//when all enter bid as 0, no maximum bidder hence null
 		}
 		else
 		{
@@ -93,5 +93,4 @@ public class biddingPlatform extends bidding
 		System.out.println("\t-----------------------------");
 		
 	}
-
 }
