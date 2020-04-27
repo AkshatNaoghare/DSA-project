@@ -91,10 +91,10 @@ public class bidders
 	void waiting(bidder d, float mb)		// waiting list
 	{
 		//System.out.println(d.budget+" "+mb);
-		if(d.budget >= mb)
+		if(d.budget >= mb)				//checks if bidder's budget is more than minimum bid expected by owner
 		{
 			d.bid=0;
-			list.add(d);
+			list.add(d);			//adds to the list
 			
 			d.display();
 		}
