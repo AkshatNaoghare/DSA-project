@@ -2,8 +2,8 @@ package carBidding;
 
 public class bidder 
 {
-	String name;
-	float budget;
+	String name;		// stores name of the bidder
+	float budget;		// stores budget of the bidder
     bidder left, right;
     float bid;
     
@@ -20,7 +20,8 @@ public class bidder
 	
 	public void display()
 	{
-		System.out.println("\nName:"+name);
-		System.out.println("Budget remanining:"+budget);
+		System.out.println("\n\tName:"+name);
+		System.out.println("\tBudget remanining:"+budget);
+		System.out.println("\t-----------------------------");
 	}
 }
