@@ -1,4 +1,3 @@
-
 package carBidding;
 
 public class car 
