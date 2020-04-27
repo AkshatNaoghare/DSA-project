@@ -15,20 +15,20 @@ public class bidding extends bidders
 		t=0;
 	}
 	
-	void bidPriorityQue(car c)
+	void bidPriorityQue(car c)		// heaps according to the budget of the bidders 
 	{
-		System.out.println("\nRound " +round++ +" -->\n");
+		System.out.println("\n\tRound " +round++ +" -->\n");
 		
 		h = list.toArray(new bidder[list.size()]);
 		
 		if(list.size()==0)
 		{
-			System.out.println("No eligible bidders!");
-			System.out.println("Car unsold!");
+			System.out.println("\n\tNo eligible bidders!");
+			System.out.println("\n\tCar unsold!");
 		}
 		else if(list.size()==1)
 		{
-			System.out.println("Do you want to buy this car? 1.Yes 2. NO");
+			System.out.println("\n\tDo you want to buy this car? 1.Yes 2. NO");
 			int ch=sc.nextInt();
 			
 			if(ch==1)
@@ -54,7 +54,7 @@ public class bidding extends bidders
 					/*do
 					{*/
 						flag=0;
-						System.out.print("\tBid by "+list.get(i).name +" : ");
+						System.out.print("\n\tBid by "+list.get(i).name +" : ");
 						
 						f= sc.nextFloat();
 						//System.out.println(f+"<"+list.get(i).bid);
@@ -76,20 +76,20 @@ public class bidding extends bidders
 				else if((f<list.get(i).bid)&&(f!=0))
 				{
 					flag=1;
-					System.out.println("Your bid in this round is lesser than that in previous bid!");
-					System.out.println("Either enter a higher bid or that of previous round or enter 0");
+					System.out.println("\n\tYour bid in this round is lesser than that in previous bid!");
+					System.out.println("\n\tEither enter a higher bid or that of previous round or enter 0");
 				}
 				else
 				{
 					if(f > list.get(i).budget)
 					{
-						System.out.println("The bid is greater than your budget\ntry again");
+						System.out.println("\n\tThe bid is greater than your budget\ntry again");
 						flag = 1;
 					}
 						
 					else if(f<c.minBid)
 					{
-						System.out.println("The bid is lesser than minimum bid expected by car owner\ntry again");
+						System.out.println("\n\tThe bid is lesser than minimum bid expected by car owner\ntry again");
 						flag = 1;
 					}
 					
@@ -99,8 +99,8 @@ public class bidding extends bidders
 						{
 							if(f==list.get(j).bid)
 							{
-								System.out.println("Some one has already placed a bid of this amount!");
-								System.out.println("Either enter a higher bid or enter bid value as 0");	
+								System.out.println("\n\tSome one has already placed a bid of this amount!");
+								System.out.println("\n\tEither enter a higher bid or enter bid value as 0");	
 								flag=1;
 								break;
 							}
@@ -164,11 +164,12 @@ public class bidding extends bidders
 	{ 
 		if(list.size()>1)
 		{
-		System.out.println("\nBids for this round were: ");
-		for (int i = 0; i < n; ++i) 
-		{
-			System.out.println("\t"+arr[i].name + ": "+arr[i].bid); 
-		}
+			System.out.println("\n\tBids for this round were: ");
+			
+			for (int i = 0; i < n; ++i) 
+			{
+				System.out.println("\n\t\t"+arr[i].name + ": "+arr[i].bid); 
+			}
 		}
 		else
 		{
@@ -177,7 +178,7 @@ public class bidding extends bidders
 		System.out.println(); 
 	} 
 	
-	bidder maximumBid()
+	bidder maximumBid()		// Stores maximum bid in each round
 	{
 		if(list.size()==0)
 		{
