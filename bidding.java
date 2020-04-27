@@ -21,12 +21,12 @@ public class bidding extends bidders
 		
 		h = list.toArray(new bidder[list.size()]);
 		
-		if(list.size()==0)
+		if(list.size()==0)		//if no eligible bidder
 		{
 			System.out.println("\n\tNo eligible bidders!");
 			System.out.println("\n\tCar unsold!");
 		}
-		else if(list.size()==1)
+		else if(list.size()==1)			//if only one eligible bidder
 		{
 			System.out.println("\n\tDo you want to buy this car? 1.Yes 2. NO");
 			int ch=sc.nextInt();
@@ -53,8 +53,8 @@ public class bidding extends bidders
 					
 					/*do
 					{*/
-						flag=0;
-						System.out.print("\n\tBid by "+list.get(i).name +" : ");
+/*						flag=0;
+*/						System.out.print("\n\tBid by "+list.get(i).name +" : ");
 						
 						f= sc.nextFloat();
 						//System.out.println(f+"<"+list.get(i).bid);
@@ -73,7 +73,7 @@ public class bidding extends bidders
 				if(f==0)
 				{
 				}
-				else if((f<list.get(i).bid)&&(f!=0))
+				else if((f<list.get(i).bid)&&(f!=0))			//checks current bid with bid of previous round
 				{
 					flag=1;
 					System.out.println("\n\tYour bid in this round is lesser than that in previous bid!");
@@ -81,13 +81,13 @@ public class bidding extends bidders
 				}
 				else
 				{
-					if(f > list.get(i).budget)
+					if(f > list.get(i).budget)		//bid greater than budget
 					{
 						System.out.println("\n\tThe bid is greater than your budget\ntry again");
 						flag = 1;
 					}
 						
-					else if(f<c.minBid)
+					else if(f<c.minBid)		//bid less than budget
 					{
 						System.out.println("\n\tThe bid is lesser than minimum bid expected by car owner\ntry again");
 						flag = 1;
@@ -95,7 +95,7 @@ public class bidding extends bidders
 					
 					else
 					{
-						for(int j=0; j<i; j++)
+						for(int j=0; j<i; j++)			//to avoid duplicate bid
 						{
 							if(f==list.get(j).bid)
 							{
@@ -109,7 +109,7 @@ public class bidding extends bidders
 				}
 					
 				}while(flag == 1);
-				list.get(i).bid=f;
+				list.get(i).bid=f;			//assigning accepted bid to bidder's data
 			}
 		
 		
@@ -171,7 +171,7 @@ public class bidding extends bidders
 				System.out.println("\n\t\t"+arr[i].name + ": "+arr[i].bid); 
 			}
 		}
-		else
+		else			//eligible bidders 1 or 0
 		{
 			t=1;
 		}
@@ -180,7 +180,7 @@ public class bidding extends bidders
 	
 	bidder maximumBid()		// Stores maximum bid in each round
 	{
-		if(list.size()==0)
+		if(list.size()==0)		//no eligible bidder
 		{
 			return null;
 		}
@@ -188,6 +188,5 @@ public class bidding extends bidders
 		{
 		return h[0];
 		}
-		
 	}
 }
