@@ -6,15 +6,14 @@ import java.util.Scanner;
 
 public class bidders 
 {
-	bidder root;
-	bidder head, t;
-
+	bidder root;		// Stores root of the tree
+	
 	Scanner sc  = new Scanner(System.in);
 //	car c = new car();
 	
-	ArrayList<bidder> list = new ArrayList<bidder>(5);
+	ArrayList<bidder> list = new ArrayList<bidder>(5);		// ArrayList to store eligible bidders
 	
-	public bidders()
+	public bidders()		// constructor of class bidders
 	{
 		root = null;
 	}
@@ -26,11 +25,13 @@ public class bidders
 		String name = null;
 		float bdgt = 0.0f;
 		
-		System.out.println("Enter name: ");
+		System.out.print("\n\t\tEnter name: \t\t");
 		name = sc.next();
+		System.out.println();
 		
-		System.out.println("Enter budget: ");
+		System.out.print("\n\t\tEnter budget: \t\t");
 		bdgt = sc.nextFloat();
+		System.out.println();
 		
 		bidder temp = new bidder(name, bdgt);
 		
@@ -44,7 +45,7 @@ public class bidders
 			
 			while(flag == 0)
 			{
-				if(temp.budget <= ptr.budget)			//if the data input is less than the root is added on the left side of the tree
+				if(temp.budget <= ptr.budget)			//if the data input is less than or equal to the root is added on the left side of the tree
 				{
 					if(ptr.left == null)
 					{
@@ -68,16 +69,11 @@ public class bidders
 						ptr = ptr.right;
 					}
 				}
-				/*else
-				{
-					System.out.println("duplicate data not allowed");
-					flag = 0;
-				}*/
 			}
 		}
 	}
 	
-	void waitingList(bidder r, float minB)							
+	void waitingList(bidder r, float minB)		// traverses the tree to create a waiting list						
 	{
 		if(r == null)
 		{
@@ -90,7 +86,9 @@ public class bidders
 			waitingList(r.right, minB);
 		}
 	}
-	void waiting(bidder d, float mb)
+	
+	
+	void waiting(bidder d, float mb)		// waiting list
 	{
 		//System.out.println(d.budget+" "+mb);
 		if(d.budget >= mb)
@@ -123,36 +121,36 @@ public class bidders
 	
 	
 	
-	/*public bidder search()							//returns address of the value input
-	{
-		bidder ptr = null;
-		bidder addr = null;
-		float bdgt = 0.0f;
-		
-		System.out.println("enter budget: ");
-		bdgt = sc.nextFloat();
-		
-		ptr = root;
-		
-		while(ptr != null)
-		{
-			if(bdgt == ptr.budget)
-			{
-				return ptr;
-			}
-			else if(bdgt < ptr.budget)
-			{
-				ptr = ptr.left;
-			}
-			else
-			{
-				ptr = ptr.right;
-			}
-		}
-		addr = ptr;
-		
-		return addr;
-	}*/
+//	public bidder search()							//returns address of the value input
+//	{
+//		bidder ptr = null;
+//		bidder addr = null;
+//		float bdgt = 0.0f;
+//		
+//		System.out.println("enter budget: ");
+//		bdgt = sc.nextFloat();
+//		
+//		ptr = root;
+//		
+//		while(ptr != null)
+//		{
+//			if(bdgt == ptr.budget)
+//			{
+//				return ptr;
+//			}
+//			else if(bdgt < ptr.budget)
+//			{
+//				ptr = ptr.left;
+//			}
+//			else
+//			{
+//				ptr = ptr.right;
+//			}
+//		}
+//		addr = ptr;
+//		
+//		return addr;
+//	}
 	
 	
 }
