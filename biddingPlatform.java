@@ -28,7 +28,7 @@ public class biddingPlatform extends bidding
 			{
 			r=1;
 			round=1;
-			System.out.println("Car sold to no one since all entered their bids as 0");
+			System.out.println("\n\tCar sold to no one since all entered their bids as 0");
 			}
 		}
 		
@@ -52,21 +52,22 @@ public class biddingPlatform extends bidding
 	{
 		/*System.out.println(maxBidder.bid);
 		System.out.println(maximumBid().bid);*/
+		System.out.println("\t-----------------------------");
 		if(t==0)
 		{
 			if(maxBidder.bid >= maximumBid().bid)
 			{
-				System.out.println("Car is sold to: " +maxBidder.name);
+				System.out.println("\n\tCar is sold to: " +maxBidder.name);
 				maxBidder.budget=maxBidder.budget-maxBidder.bid;
-				System.out.println("Remaining budget: "+maxBidder.budget);
+				System.out.println("\n\tRemaining budget: "+maxBidder.budget);
 				c.buyer=maxBidder.name;
 				c.soldprice=maxBidder.bid;
 			}
 			else
 			{
-				System.out.println("Car is sold to: " +maximumBid().name);
+				System.out.println("\n\tCar is sold to: " +maximumBid().name);
 				maximumBid().budget=maximumBid().budget-maximumBid().bid;
-				System.out.println("Remaining budget: "+maximumBid().budget);
+				System.out.println("\n\tRemaining budget: "+maximumBid().budget);
 	
 				c.buyer=maximumBid().name;
 				c.soldprice=maximumBid().bid;
@@ -78,15 +79,19 @@ public class biddingPlatform extends bidding
 		}
 		else
 		{
-			System.out.println("Car is sold to: " +maximumBid().name);
+			System.out.println("\t-----------------------------");
+			System.out.println("\n\tCar is sold to: " +maximumBid().name);
 			maximumBid().budget=maximumBid().budget-maximumBid().bid;
-			System.out.println("Remaining budget: "+maximumBid().budget);
+			System.out.println("\n\tRemaining budget: "+maximumBid().budget);
 
 			c.buyer=maximumBid().name;
 			c.soldprice=maximumBid().bid;
 		}
 		round=1;
 		h=null;
+		
+		System.out.println("\t-----------------------------");
+		
 	}
 
 }
