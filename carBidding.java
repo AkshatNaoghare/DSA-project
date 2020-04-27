@@ -84,19 +84,34 @@ public class carBidding
 											
 											String num;
 											
-											System.out.print("\n\t\tEnter license plate number of the car to delete the entry: \n\t");
-											num = sc.next();
-											System.out.println();
+											if(nc==0)
+											{
+												System.out.println("\t\t\tNo cars to delete from!");
+											}
+											else
+											{
+												System.out.print("\n\t\tEnter license plate number of the car to delete the entry: \n\t\t");
+												num = sc.next();
+												System.out.println();
 											
-											cs.delete(num);
-											
+												cs.delete(num);
+												nc--;
+												System.out.println("\t\t\tEntry deleted!");
+											}
 											break;
 											
 										case 3:
 											
-											System.out.println("\n\t\tResults of all cars: ");
-											System.out.println("\t\t-----------------------------");
-											cs.displayAll();
+											if(nc==0)
+											{
+												System.out.println("\t\t\tNo cars to display!\n");
+											}
+											else
+											{
+												System.out.println("\n\t\tResults of all cars: ");
+												System.out.println("\t\t-----------------------------");
+												cs.displayAll();
+											}
 											
 											break;
 											
@@ -104,11 +119,26 @@ public class carBidding
 											
 											String num1;
 											
-											System.out.print("\n\t\tEnter license plate number of the car to search the entry: \n\t\t");
-											num1 = sc.next();
-											System.out.println();
-											
-											cs.search(num1);
+											if(nc==0)
+											{
+												System.out.println("\t\t\tNo cars to search from!");
+											}
+											else
+											{
+												System.out.print("\n\t\tEnter license plate number of the car to search the entry: \n\t\t");
+												num1 = sc.next();
+												System.out.println();
+												
+												if(cs.search(num1))		//if found
+												{
+													System.out.print("\t\t");
+													cs.display(cs.found);
+												}
+												else
+												{
+													System.out.println("\t\t\tCar not found!\n");
+												}
+											}
 											
 											break;
 									}
@@ -164,9 +194,9 @@ public class carBidding
 						b.r=0;
 						b.t=0;
 						
-						for(int j=0 ; j<3; j++)
+						for(int j=0 ; j<3; j++)		//3 rounds
 						{
-							if((b.r==0)&&(b.t==0))
+							if((b.r==0)&&(b.t==0))		//next round not conducted if all enter bid as 0 or only 1 eligible bidder
 							{
 								b.bidPriorityQue(c);
 								b.rounds(c);
@@ -174,14 +204,14 @@ public class carBidding
 						}
 						
 						
-						if((b.r==0))
+						if((b.r==0))		//all did  not enter bid as 0
 						{
 							b.sellCar(b.maximumBid(), c);
 							c.sold = true;
 
 						}
 						
-						if(b.t==1)
+						if(b.t==1)			//one eligible bidder, car is sold
 						{
 							System.out.println("");
 							c.sold=true;
@@ -191,18 +221,23 @@ public class carBidding
 					}
 					else
 					{
-						System.out.println("\n\tNo cars to bid on!");
+						System.out.println("\n\tNo cars to bid on!\n");
 					}
 					
 					break;
 					
 				case 'c':
 				case 'C':
-					
-					System.out.println("\n\t\tResults of all cars: ");
-					System.out.println("\t\t-----------------------------");
-					
-					cs.displayAll();
+					if(nc==0)
+					{
+						System.out.println("\tNo cars to display!\n");
+					}
+					else
+					{
+						System.out.println("\n\t\tResults of all cars: ");
+						System.out.println("\t\t-----------------------------");
+						cs.displayAll();
+					}
 					
 					break;	
 			}
