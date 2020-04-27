@@ -10,6 +10,7 @@ public class cars
 	static int index;		//Address of the hash
 	int max;		// Stores size of the hash
 	car carStore[];		// Stores the hash
+	car found;
 	
 	Scanner sc=new Scanner(System.in);
 	
@@ -46,7 +47,7 @@ public class cars
 			num=sc.next();
 			System.out.println();
 			
-			if(validator(num))
+			if(validator(num))		//validation for format of license plate number
 			{
 			}
 			else
@@ -55,7 +56,7 @@ public class cars
 				flag=1;
 			}
 			
-			if(search(num))
+			if(search(num))			//validation for duplicate license number
 			{
 				System.out.println("\n\t\tDuplicate license plate number!");
 				System.out.println("\n\t\tRe-enter!");
@@ -81,15 +82,15 @@ public class cars
 		bid=sc.nextFloat();
 		System.out.println();
 		
-		car temp=new car(name,num,brand,model,cost,bid);
+		car temp=new car(name,num,brand,model,cost,bid);			//creates new car type object to store new car
 		
-		int key=Integer.parseInt(num.substring(11));		//converts string to integer data type
+		int key=Integer.parseInt(num.substring(9));		//converts string to integer data type
 		
 		hash_add=(key%max);
 				
 		if(carStore[hash_add]==null)
 		{
-			carStore[hash_add]=temp;
+			carStore[hash_add]=temp;			//car stored in hash table
 		}
 		else
 		{
@@ -98,23 +99,23 @@ public class cars
 			{
 				add=add.next;				
 			}
-			add.next=temp;
+			add.next=temp;				//car stored in LL of hash table
 		}
 	}
 	
-	void display(car ptr)
+	void display(car ptr)			//display ptr car
 	{
 		System.out.println("\n\tCar Brand name: "+ptr.brand);
 		System.out.println("\tCar Model Name: "+ptr.modelName);
 		System.out.println("\tCar Owner name: "+ptr.name);
 		System.out.println("\tCar License Plate Number: "+ptr.licPNo);
 		
-		if(ptr.soldprice==0)
+		if(ptr.soldprice==0)			//if car sold
 		{
 			System.out.println("\tOriginal cost of the car --> $"+ptr.originalCost);
 			System.out.println("\tMinimum bid expected by owner --> $"+ptr.minBid);
 		}
-		else
+		else			//if car yet to be sold
 		{
 			System.out.println("\tCar sold at a price of --> $"+ptr.soldprice);
 			System.out.println("\tTo-->"+ptr.buyer);
@@ -124,7 +125,7 @@ public class cars
 		
 	}
 	
-	void displayAll()
+	void displayAll()			//display all car entries
 	{
 		car ptr=null;
 		
@@ -138,11 +139,11 @@ public class cars
 				System.out.println("\t\tCar Owner name: "+ptr.name);
 				System.out.println("\t\tCar License Plate Number: "+ptr.licPNo);
 				
-				if(ptr.soldprice==0)
+				if(ptr.soldprice==0)			//if car not sold
 				{
 					System.out.println("\n\t\tCar Not Sold Yet!");
 				}
-				else
+				else		//if sold
 				{
 					System.out.println("\n\t\tCar sold at a price of --> $"+ptr.soldprice);
 					System.out.println("\n\t\tTo --> "+ptr.buyer);
@@ -159,7 +160,7 @@ public class cars
 		
 		if(validator(str))
 		{
-			int key=Integer.parseInt(str.substring(9, 13));
+			int key=Integer.parseInt(str.substring(9));
 			int addr=(int)(key%max);
 			
 			car ptr=carStore[addr];
@@ -169,7 +170,8 @@ public class cars
 	
 				if(ptr.licPNo.equals(str))
 				{
-					flag=1;
+					found=ptr;			//to store car if found
+					flag=1;			//car found
 					break;
 				}
 				ptr=ptr.next;
@@ -188,31 +190,31 @@ public class cars
 	
 	void delete(String str)
 	{
-		int key=Integer.parseInt(str.substring(8,13));
+		int key=Integer.parseInt(str.substring(9));
 		int addr=(int)(key%max);
 		
 		car ptr=carStore[addr].next;
 		car prev=carStore[addr];
 		
-		if(prev.licPNo==str)
+		if((prev.licPNo).equals(str))
 		{
 			prev.next=null;
 			carStore[addr]=ptr;		//deletion successful
 		}
 		else
 		{
-			while(ptr.licPNo!=str)
+			while(!(ptr.licPNo).equals(str))
 			{
 				prev=ptr;
 				ptr=ptr.next;
 				
-				if(ptr.licPNo==str)
+				if((ptr.licPNo).equals(str))
 				{
-					break;
+					break;			//car entry found to be deleted
 				}
 			}
 			
-			if(ptr.licPNo==str)
+			if((ptr.licPNo).equals(str))
 			{
 				prev.next=ptr.next;
 				ptr.next=null;			//deletion successful
@@ -235,16 +237,16 @@ public class cars
 				index++;//inc head
 				if(index==15)
 				{
-					index=0;
+					index=0;				//index should become 0 after 14 to continue traversal of hashtable
 				}
 				select=carStore[index];		//we move to next head
 			}
 			
 			if(select!=null)
 			{
-				if(!select.sold)
-				{	current=select;
-					select=select.next;
+				if(!select.sold)		//car not sold
+				{	current=select;		//current will be the head car
+					select=select.next;			
 					if(select==null)
 					{
 						break;
@@ -259,9 +261,9 @@ public class cars
 							select=select.next;
 							break;
 						}
-						select=select.next;
+						select=select.next;			//traverse LL till you find an unsold car
 					}
-					current=select;
+					current=select;			
 				}
 		}
 	}while(flag==1);
@@ -325,7 +327,7 @@ public class cars
 			return false;
 		}
 		
-		boolean rightAns = Pattern.compile("^[A-Z a-z]{1,2}-[0-9]{1,3}-[A-Z a-z]{1,3}-[0-9]{1,4}$").matcher(lpn).find();
+		boolean rightAns = Pattern.compile("^[A-Z a-z]{1,2}-[0-9]{1,3}-[A-Z a-z]{1,3}-[0-9]{1,4}$").matcher(lpn).find();	//ll-xx-ll-xxxx
 		
 		if(!rightAns)
 		{
