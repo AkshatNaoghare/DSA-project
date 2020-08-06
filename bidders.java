@@ -67,6 +67,7 @@ public class bidders
 				q.add(temp.right);
 			}
 		}
+	}
 		/*if(root == null)
 		{						//creating the first node i.e. the root
 			root = temp;
