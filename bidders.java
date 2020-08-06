@@ -19,9 +19,8 @@ public class bidders
 	}
 	
 	public void create()
-	{							//creates a BST
+	{							//creates a BT
 		int flag = 0;
-		bidder ptr = null;
 		String name = null;
 		float bdgt = 0.0f;
 		
@@ -33,9 +32,42 @@ public class bidders
 		bdgt = sc.nextFloat();
 		System.out.println();
 		
-		bidder temp = new bidder(name, bdgt);
-		
+		bidder ptr = new bidder(name, bdgt);
 		if(root == null)
+		{						//creating the first node i.e. the root
+			root = ptr;
+			return;
+		}
+		
+		Queue<bidder> q=new LinkedList<bidder>();
+		q.add(root);
+		bidder temp;     
+		while(!q.isEmpty())
+		      {
+			temp=q.peek();
+			q.remove();
+			
+			if(temp.left==null)
+			{
+				temp.left=ptr;
+				return;
+			}
+			else
+			{
+				q.add(temp.left);
+			}
+			
+			if(temp.right==null)
+			{
+				temp.right=ptr;
+				return;
+			}
+			else
+			{
+				q.add(temp.right);
+			}
+		}
+		/*if(root == null)
 		{						//creating the first node i.e. the root
 			root = temp;
 		}
@@ -70,8 +102,8 @@ public class bidders
 					}
 				}
 			}
-		}
-	}
+		}*/
+	
 	
 	void waitingList(bidder r, float minB)		// traverses the tree to create a waiting list						
 	{
